@@ -1,0 +1,13 @@
+# Express application server
+FROM node:6.8.0-slim
+
+COPY ./data /data
+
+WORKDIR /data
+
+CMD [ "npm", "run" "prod-server" ]
+
+HEALTHCHECK --interval=30s --timeout=1s --retries=3 \
+  CMD curl -f http://localhost:3000/healthcheck || exit 1
+
+EXPOSE 3000

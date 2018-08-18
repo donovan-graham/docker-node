@@ -1,0 +1,13 @@
+# docker build --tag node-dev --build-arg user=`id -un` --build-arg uid=`id -u` --force-rm .
+FROM node:6.7.0
+
+ARG user
+ARG uid
+RUN useradd -ms /bin/bash --gid `id -g` --groups root -u $uid $user
+USER $user
+
+RUN mkdir -p /data
+WORKDIR /data
+VOLUME /data
+
+EXPOSE 3000
